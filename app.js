@@ -1,18 +1,9 @@
 
 const inquirer = require('inquirer');
-// const fs = require("fs");
-// const generatePage = require("./src/page-template");
 
+const fs = require("fs");
+const generatePage = require("./src/page-template");
 
-// // creating an empty array 
-// const pageHTML = generatePage(name, github);
-
-
-// fs.writeFile('index.html', pageHTML, err => {
-//   if (err) throw err;
-
-//   console.log('Portfolio complete! Check out index.html to see the output!')
-// });
 const promptUser = () => {
   return inquirer.prompt([
     {
@@ -63,7 +54,7 @@ const promptUser = () => {
 };
 
 const promptProject = portfolioData => {
-  portfolioData.projects = [];
+  // portfolioData.projects = [];
   //if thers no 'projects' array property, create one 
   if (!portfolioData.projects) {
     portfolioData.projects = [];
@@ -118,19 +109,20 @@ const promptProject = portfolioData => {
     {
       type: ' confirm',
       name: 'feature',
-      message: 'Would you like to feature this projects?',
+      message: 'Would you like to feature this project?',
       default: false
     },
     {
       type: 'confirm',
       name: 'confirmAddProject',
-      message: 'Would you like to enter another projects?',
+      message: 'Would you like to enter another project?',
       default: false
     }
 
 
   ])
     .then(projectData => {
+      // console.log(projectData)
       portfolioData.projects.push(projectData);
       if (projectData.confirmAddProject) {
         return promptProject(portfolioData);
@@ -147,5 +139,11 @@ const promptProject = portfolioData => {
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    console.log(portfolioData);
+    const pageHTML = generatePage(portfolioData);
+    fs.writeFile('index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+
+      console.log('page complete! Check out index.html in this directory to see it!')
+    });;
   });
+
