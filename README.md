@@ -14,4 +14,4 @@ used Node.js to build a program that creates an HTML portfolio page, through cam
 
 ## Screenshot
 
-<img src ="./img/screenshot1.png" >
+<img src= "https://github.com/AnjinIsmail/portfolio-generator/blob/main/img/screenshot%201.png" >
